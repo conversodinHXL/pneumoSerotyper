@@ -4,12 +4,11 @@ NAME
 		pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with Nucmer.
 
 SYNOPSIS
-		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output -c coverage -p identity
-		-e E-value -k
+		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output
 
 DESCRIPTION
-		Run Nucmer on the provided whole genome sequences and process the inferred Highest Scoring
-		Pairs (HSP) to determine if it matches the query capsule polysaccharise synthesis (cps) locus
+		Run Nucmer on the provided whole genome sequences and process the matches to determine 
+		how they similar they are to the pneumococcal capsule polysaccharise synthesis (cps) locus
 		sequence which encodes the outer cell polysaccharides that determines the serotypes.
 
 		By default the input file format for the sequences is FASTA.
