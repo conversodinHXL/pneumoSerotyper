@@ -2,7 +2,7 @@
 
 NAME
 
-		pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with Nucmer.
+		pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with given whole genome sequences/assemblies.
 
 SYNOPSIS
 
