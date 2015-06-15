@@ -49,7 +49,7 @@ OPTIONS
 
 AUTHOR
 
-		Chrispin Chaguza, Chrispin.Chaguza@liverpool.ac.uk. June 2015
+		Chrispin Chaguza, Chrispin.Chaguza@liv.ac.uk. 15 June 2015
 
 FILES
 
