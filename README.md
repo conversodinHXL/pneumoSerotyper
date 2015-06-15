@@ -57,4 +57,8 @@ FILES
 
 DEPENDENCIES
 
-		http://mummer.sourceforge.net/ (if you have homebrew installed, install using 'brew install mummer')
+		biopython (http://biopython.org/wiki/Main_Page) 
+		http://mummer.sourceforge.net/ 
+		
+		(if you have homebrew installed, these can be install using commands; 'brew install mummer'
+		and 'brew install biopython')
