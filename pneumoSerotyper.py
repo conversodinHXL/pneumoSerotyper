@@ -44,8 +44,7 @@ NAME
 		pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with Nucmer.
 
 SYNOPSIS
-		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output -c coverage -p identity
-		-e E-value -k
+		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output -l matchLen
 
 DESCRIPTION
 		Run Nucmer on the provided whole genome sequences and process the inferred Highest Scoring
@@ -77,7 +76,7 @@ OPTIONS
 		Specify the prefix for the output files. By default the output files will have
 		a prefix "Serotypes.Summary" if not specified by the user.
 
-		-c value
+		-l value
 		Specify the minimum length of the matches to be considered (default:500). Note that
 		smaller values will result in more spurious matches.
 
