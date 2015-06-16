@@ -292,6 +292,7 @@ def main():
         print "found nucmer executable: "+nucmerPath
 
     serotypesData = {
+    	"HE651292":"NT",
         "CR931632": "1",
         "CR931633": "2",
         "CR931634": "3",
