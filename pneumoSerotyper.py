@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+__author__ = 'Chrispin Chaguza'
+__copyright__ = "Copyright 2015"
+__license__ = "GPL"
+__version__ = "1.0.0"
+__email__ = "Chrispin.Chaguza@liv.ac.uk"
+
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -39,23 +45,18 @@ import shutil
 import operator
 
 
-programUsage = """
-NAME
+programUsage = """NAME
 		pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with Nucmer.
-
 SYNOPSIS
-		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output -c coverage -p identity
-		-e E-value -k
-
+		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output -c minMatchLength
 DESCRIPTION
-		Run Nucmer on the provided whole genome sequences and process the inferred Highest Scoring
-		Pairs (HSP) to determine if it matches the query capsule polysaccharise synthesis (cps) locus
+		Run Nucmer on the provided whole genome sequences and process the matches to determine
+		how they similar they are to the pneumococcal capsule polysaccharise synthesis (cps) locus
 		sequence which encodes the outer cell polysaccharides that determines the serotypes.
 
-		By default the input file format for the sequences is FASTA.
-
-		The user is required to supply the input files and optionally specify
-		other Options. The program can be run as follows;
+		By default the input file format for the sequences is FASTA. The user is required to
+		supply the input files and optionally specify other Options. The program can be run as
+		follows;
 
 		#Simplest way to run it is to provide the input sequences in fasta format (default).
 		pneumoSerotyper.py -i *.fasta -o output
@@ -64,7 +65,6 @@ DESCRIPTION
 		pneumoSerotyper.py -i *.fasta -o output -c 500
 
 		A summary of the output file names is given at the end of program's execution.
-
 OPTIONS
 		-h
 		Help. Print this help information and exit.
@@ -83,21 +83,25 @@ OPTIONS
 
 		-r
 		Remove Nucmer output files (default is to keep the files)
-
 AUTHOR
 		Chrispin Chaguza, Chrispin.Chaguza@liverpool.ac.uk. June 2015
-
 FILES
 		pneumoSerotyper.py
-
 DEPENDENCIES
-		http://mummer.sourceforge.net/ (if you have homebrew installed, install using 'brew install mummer')
+		MUMmer: http://mummer.sourceforge.net/
+		biopython: http://biopython.org/wiki/Main_Page
 
+		If you have homebrew installed on your computer, you can install these dependencies
+		using 'brew install mummer' and 'brew install biopython'.
 """
 
 MATCH_LENGTH=500
 
 def readUserArguments(UserArgs):
+    """
+	subroutine to get input files and user options
+	"""
+
     Options = argparse.ArgumentParser(UserArgs[0],
                         description="pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with Nucmer",
                         prefix_chars="-",
@@ -185,12 +189,18 @@ def checkUserArguments(UserOptions):
 
 
 def showErrorMessage(ErrorMessage):
+    """
+    display error message on the terminal and quit
+    """
     sys.stdout.write("\nerror: " + str(ErrorMessage) + "\n")
     sys.stdout.write("\nuse -h option to see more detailed help\n")
     sys.exit()
 
 
 def showProgramStatus(ItemList, ItemPos):
+    """
+    display percentage progress for the the program
+    """
     NumElements = len(ItemList)
     ProgressChars = "="
 
@@ -211,6 +221,9 @@ def showProgramStatus(ItemList, ItemPos):
 
 
 def RunNucmerThread(nucmerCommand, nucmerOutput):
+    """
+    Compare each genome against reference Cps locus sequences
+    """
     try:
         FNULL = open(nucmerOutput, "wb")
 
@@ -262,6 +275,10 @@ def RunNucmerThread(nucmerCommand, nucmerOutput):
 
 
 def main():
+    """
+    runs the main program and process the user supplied genomes
+    """
+
     Args = readUserArguments(sys.argv[:])
 
     inputOptions = checkUserArguments(Args)
@@ -293,96 +310,97 @@ def main():
         print "found nucmer executable: "+nucmerPath
 
     serotypesData = {
+        "HE651292":"NT",
         "CR931632": "1",
         "CR931633": "2",
         "CR931634": "3",
         "CR931635": "4",
         "CR931636": "5",
         "CR931637": "5",
-        "CR931638": "6a",
-        "CR931639": "6b",
-        "CR931640": "7a",
-        "CR931641": "7b",
-        "CR931642": "7c",
-        "CR931643": "7f",
+        "CR931638": "6A",
+        "CR931639": "6B",
+        "CR931640": "7A",
+        "CR931641": "7B",
+        "CR931642": "7C",
+        "CR931643": "7F",
         "CR931644": "8",
-        "CR931645": "9a",
+        "CR931645": "9A",
         "CR931646": "9I",
-        "CR931647": "9n",
-        "CR931648": "9v",
-        "CR931649": "10a",
-        "CR931650": "10b",
-        "CR931651": "10c",
-        "CR931652": "10f",
-        "CR931653": "11a",
-        "CR931654": "11b",
-        "CR931655": "11c",
-        "CR931656": "11d",
-        "CR931657": "11f",
-        "CR931658": "12a",
-        "CR931659": "12b",
-        "CR931660": "12f",
+        "CR931647": "9N",
+        "CR931648": "9V",
+        "CR931649": "10A",
+        "CR931650": "10B",
+        "CR931651": "10C",
+        "CR931652": "10F",
+        "CR931653": "11A",
+        "CR931654": "11B",
+        "CR931655": "11C",
+        "CR931656": "11D",
+        "CR931657": "11F",
+        "CR931658": "12A",
+        "CR931659": "12B",
+        "CR931660": "12F",
         "CR931661": "13",
         "CR931662": "14",
-        "CR931663": "15a",
-        "CR931664": "15b",
-        "CR931665": "15c",
-        "CR931666": "15f",
-        "CR931667": "16a",
-        "CR931668": "16f",
-        "CR931669": "17a",
-        "CR931670": "17f",
-        "CR931671": "18a",
-        "CR931672": "18b",
-        "CR931673": "18c",
-        "CR931674": "18f",
-        "CR931675": "19a",
-        "CR931676": "19b",
-        "CR931677": "19c",
-        "CR931678": "19f",
+        "CR931663": "15A",
+        "CR931664": "15B",
+        "CR931665": "15C",
+        "CR931666": "15F",
+        "CR931667": "16A",
+        "CR931668": "16F",
+        "CR931669": "17A",
+        "CR931670": "17F",
+        "CR931671": "18A",
+        "CR931672": "18B",
+        "CR931673": "18C",
+        "CR931674": "18F",
+        "CR931675": "19A",
+        "CR931676": "19B",
+        "CR931677": "19C",
+        "CR931678": "19F",
         "CR931679": "20",
         "CR931680": "21",
-        "CR931681": "22a",
-        "CR931682": "22f",
-        "CR931683": "23a",
-        "CR931684": "23b",
-        "CR931685": "23f",
-        "CR931686": "24a",
-        "CR931687": "25",
-        "CR931688": "24f",
-        "CR931689": "25a",
-        "CR931690": "25f",
+        "CR931681": "22A",
+        "CR931682": "22F",
+        "CR931683": "23A",
+        "CR931684": "23B",
+        "CR931685": "23F",
+        "CR931686": "24A",
+        "CR931687": "24B",
+        "CR931688": "24F",
+        "CR931689": "25A",
+        "CR931690": "25F",
         "CR931691": "27",
-        "CR931692": "28a",
-        "CR931693": "28f",
+        "CR931692": "28A",
+        "CR931693": "28F",
         "CR931694": "29",
         "CR931695": "31",
-        "CR931696": "32a",
-        "CR931697": "32f",
-        "CR931698": "33a",
-        "CR931699": "33b",
-        "CR931700": "33c",
-        "CR931701": "33d",
-        "CR931702": "33f",
+        "CR931696": "32A",
+        "CR931697": "32F",
+        "CR931698": "33A",
+        "CR931699": "33B",
+        "CR931700": "33C",
+        "CR931701": "33D",
+        "CR931702": "33F",
         "CR931703": "34",
-        "CR931704": "35a",
-        "CR931705": "35b",
-        "CR931706": "35c",
-        "CR931707": "35f",
+        "CR931704": "35A",
+        "CR931705": "35B",
+        "CR931706": "35C",
+        "CR931707": "35F",
         "CR931708": "36",
         "CR931709": "37",
         "CR931710": "38",
         "CR931711": "39",
         "CR931712": "40",
-        "CR931713": "41a",
-        "CR931714": "41f",
+        "CR931713": "41A",
+        "CR931714": "41F",
         "CR931715": "42",
         "CR931716": "43",
         "CR931717": "44",
         "CR931718": "45",
         "CR931719": "46",
-        "CR931720": "47a",
-        "CR931721": "47f",
+        "CR931720": "47A",
+        "CR931721": "47F",
         "CR931722": "48"}
 
     checkCount=0
@@ -627,4 +645,7 @@ def main():
 
 
 if __name__ == "__main__":
+    """
+    start the main program
+    """
     main()
