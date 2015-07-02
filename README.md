@@ -1,15 +1,17 @@
 # pneumoSerotyper
 
 NAME
-		pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with Nucmer.
+
+		pneumoSerotyper.py - Tool for identifying pneumococcal serotypes with given whole genome sequences/assemblies.
 
 SYNOPSIS
-		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output -c coverage -p identity
-		-e E-value -k
+
+		pneumoSerotyper.py -i seq1,seq2,...,seqN -o output
 
 DESCRIPTION
-		Run Nucmer on the provided whole genome sequences and process the inferred Highest Scoring
-		Pairs (HSP) to determine if it matches the query capsule polysaccharise synthesis (cps) locus
+
+		Run Nucmer on the provided whole genome sequences and process the matches to determine 
+		how they similar they are to the pneumococcal capsule polysaccharise synthesis (cps) locus
 		sequence which encodes the outer cell polysaccharides that determines the serotypes.
 
 		By default the input file format for the sequences is FASTA.
@@ -26,6 +28,7 @@ DESCRIPTION
 		A summary of the output file names is given at the end of program's execution.
 
 OPTIONS
+
 		-h
 		Help. Print this help information and exit.
 
@@ -45,10 +48,17 @@ OPTIONS
 		Remove Nucmer output files (default is to keep the files)
 
 AUTHOR
-		Chrispin Chaguza, Chrispin.Chaguza@liverpool.ac.uk. June 2015
+
+		Chrispin Chaguza, Chrispin.Chaguza@liv.ac.uk. 15 June 2015
 
 FILES
+
 		pneumoSerotyper.py
 
 DEPENDENCIES
-		http://mummer.sourceforge.net/ (if you have homebrew installed, install using 'brew install mummer')
+
+		biopython (http://biopython.org/wiki/Main_Page) 
+		http://mummer.sourceforge.net/ 
+		
+		(if you have homebrew installed, these can be install using commands; 'brew install mummer'
+		and 'brew install biopython')
