@@ -319,7 +319,11 @@ def main():
         "CR931637": "5",
         "CR931638": "6A",
         "CR931639": "6B",
-        "CR931640": "7A",
+	"HM171374": "6D",
+	"EF538714": "6c",
+	"KC832411": "6F",
+	"KC832410": "6G",
+	"CR931640": "7A",
         "CR931641": "7B",
         "CR931642": "7C",
         "CR931643": "7F",
@@ -540,10 +544,10 @@ def main():
     serotypesOutputTXT.write("isolate-id")
 
     for eachCpsSeq in range(1,len(serotypesData)+1):
-        serotypesOutputCSV.write(",,match-"+str(eachCpsSeq)+",hsp-coverage-"+str(eachCpsSeq)+
-                                 ",hsp-identity-"+str(eachCpsSeq))
-        serotypesOutputTXT.write("\tmatch-"+str(eachCpsSeq)+"\thsp-coverage-"+str(eachCpsSeq)+
-                                 "\thsp-identity-"+str(eachCpsSeq))
+        serotypesOutputCSV.write(",,match-"+str(eachCpsSeq)+",coverage-"+str(eachCpsSeq)+
+                                 ",identity-"+str(eachCpsSeq))
+        serotypesOutputTXT.write("\tmatch-"+str(eachCpsSeq)+"\tcoverage-"+str(eachCpsSeq)+
+                                 "\tidentity-"+str(eachCpsSeq))
 
     serotypesOutputCSV.write("\n")
     serotypesOutputTXT.write("\n")
